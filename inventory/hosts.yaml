@@ -1,0 +1,59 @@
+---
+all:
+  hosts:
+  children:
+    control_srv:
+      hosts:
+        GPU01:
+          ansibe_user: root
+          ansible_host: 192.168.1.10
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+    gpusrv:
+      hosts:
+        GPU01:
+          ansibe_user: root
+          ansible_host: 192.168.1.11
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+        GPU02:
+          ansibe_user: root
+          ansible_host: 192.168.1.12
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+        GPU03:
+          ansibe_user: root
+          ansible_host: 192.168.1.13
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+        GPU04:
+          ansibe_user: root
+          ansible_host: 192.168.1.14
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+        GPU05:
+          ansibe_user: root
+          ansible_host: 192.168.1.15
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+        GPU06:
+          ansibe_user: root
+          ansible_host: 192.168.1.16
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+        GPU07:
+          ansibe_user: root
+          ansible_host: 192.168.1.17
+          ansible_port: 22
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_python_interpreter: /usr/local/bin/python3.8
+
+
+
