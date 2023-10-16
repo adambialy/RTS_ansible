@@ -1,0 +1,7 @@
+---
+- name: server info
+  gather_facts: True
+  hosts: all
+  roles:
+    - role: server-http-info 
+
