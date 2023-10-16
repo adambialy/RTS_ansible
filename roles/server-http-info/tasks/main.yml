@@ -1,0 +1,6 @@
+---
+# tasks file for server-http-info
+#
+#
+- name: push server info
+  command: "dmidecode | txt2html > /var/www/html/index.html"
