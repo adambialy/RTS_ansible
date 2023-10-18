@@ -1,0 +1,3 @@
+---
+temp_report: "/tmp/iperf3.out"
+html_report: "/var/www/html/iperf.html"

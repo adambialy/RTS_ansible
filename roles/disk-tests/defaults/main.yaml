@@ -1,0 +1,3 @@
+---
+temp_report: "/tmp/disk-tests.out"
+html_report: "/var/www/html/disk-tests.html"

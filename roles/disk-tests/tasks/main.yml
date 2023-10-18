@@ -1,0 +1,22 @@
+---
+
+- name: "create empty test result file"
+  shell: "date > {{ temp_report }} && echo -------------- >> {{ temp_report }}"
+
+- name: "header"
+  shell: "echo 'hdparam test'  > {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
+
+- name: "disk test 1"
+  shell: "hdparam -Tt /dev/sda >> {{ temp_report }}"
+
+- name: "header"
+  shell: "echo 'fio test'  > {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
+
+- name: "disk test 2"
+  shell: "fio --name=random-write --ioengine=posixaio --rw=randwrite --bs=4k --numjobs=1 --size=1g --iodepth=1 --runtime=60 --time_based --end_fsync=1 >> {{ temp_report }}"
+
+- name: "html formating"
+  shell: "cat {{ temp_report }} | txt2html >> {{ html_report }}"
+
+
+

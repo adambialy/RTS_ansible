@@ -1,0 +1,13 @@
+---
+
+- name: "create empty test result file"
+  shell: "date > {{ temp_report }} && echo -------------- >> {{ temp_report }}"
+
+- name: "iperf test 1"
+  shell: "iperf3 -c 10.1.1.10 -f K >> {{ temp_report }}"
+
+- name: "html formating"
+  shell: "cat {{ temp_report }} | txt2html >> {{ html_report }}"
+
+
+
