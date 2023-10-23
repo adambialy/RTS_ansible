@@ -1,6 +1,6 @@
 ---
 - name: iperf test
-  gather_facts: True
+  gather_facts: False
   hosts: gpu
   serial: 1
   roles:

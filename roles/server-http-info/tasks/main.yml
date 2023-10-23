@@ -2,3 +2,16 @@
 
 - name: push server info
   shell: "dmidecode | txt2html > /var/www/html/index.html"
+
+- name: "Creates host directory"
+  file:
+    path: '/var/www/html/{{ inventory_hostname }}'
+    state: directory
+  delegate_to: localhost
+
+- name: "grab file from test machine"
+  ansible.builtin.fetch:
+    src: '/var/www/html/index.html'
+    dest: '/var/www/html/{{ inventory_hostname }}/index-{{ inventory_hostname }}.html'
+    flat: yes
+
