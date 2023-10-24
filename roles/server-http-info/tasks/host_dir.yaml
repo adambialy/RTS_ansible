@@ -1,7 +1,0 @@
----
-
-- name: "Creates host directory"
-  file:
-    path: '/var/www/html/{{ inventory_hostname }}'
-    state: directory
-  delegate_to: localhost

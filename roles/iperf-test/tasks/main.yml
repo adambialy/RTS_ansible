@@ -1,6 +1,6 @@
 ---
 
-- import: host_dir.yaml
+- include: includes/host_dir.yaml
 
 - name: "check if iperf3 is running"
   shell: 'ps ax | grep iperf3 | grep -v grep | wc -l'

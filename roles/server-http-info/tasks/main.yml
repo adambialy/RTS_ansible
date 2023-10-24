@@ -1,6 +1,6 @@
 ---
 
-- import: host_dir.yaml
+- include: includes/host_dir.yaml
 
 - name: push server info
   shell: "dmidecode | txt2html > /var/www/html/index.html"
