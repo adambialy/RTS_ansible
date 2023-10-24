@@ -1,6 +1,7 @@
 ---
 - name: iperf test
   gather_facts: False
+  ignore_unreachable: True
   hosts: gpu
   serial: 1
   roles:

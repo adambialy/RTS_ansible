@@ -19,9 +19,9 @@
   shell: "iperf3 -c 10.1.1.10 -f K >> {{ temp_report }}"
 
 - name: "download report file from test machine"
-  ansible.builtin.fetch:
+  fetch:
     src: '{{ temp_report }}'
     dest: '/var/www/html/{{ inventory_hostname }}/network-speedtest-{{ inventory_hostname }}.txt'
     flat: yes
-
+  ignore_errors: True
 
