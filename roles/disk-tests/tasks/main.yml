@@ -1,16 +1,18 @@
 ---
 
+- import: host_dir.yaml
+
 - name: "create empty test result file"
   shell: "date > {{ temp_report }} && echo -------------- >> {{ temp_report }}"
 
 - name: "header"
-  shell: "echo 'hdparm test'  >> {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
+  shell: "echo '' >> {{ temp_report }} && echo 'hdparm test'  >> {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
 
 - name: "disk test 1"
   shell: "hdparm -Tt /dev/sda >> {{ temp_report }}"
 
 - name: "header"
-  shell: "echo 'hdparm test direct access'  >> {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
+  shell: "echo '' >> {{ temp_report }} && echo 'hdparm test direct access'  >> {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
 
 - name: "disk test 2"
   shell: "hdparm -Tt --direct /dev/sda >> {{ temp_report }}"
@@ -21,13 +23,7 @@
     #- name: "disk test 2"
     #  shell: "fio --name=random-write --ioengine=posixaio --rw=randwrite --bs=4k --numjobs=1 --size=1g --iodepth=1 --runtime=60 --time_based --end_fsync=1 >> {{ temp_report }}"
 
-- name: "Creates host directory"
-  file:
-    path: '/var/www/html/{{ inventory_hostname }}'
-    state: directory
-  delegate_to: localhost
-
-- name: "grab file from test machine"
+- name: "download report file from test machine"
   ansible.builtin.fetch:
     src: '{{ temp_report }}'
     dest: '/var/www/html/{{ inventory_hostname }}/disk-tests-{{ inventory_hostname }}.txt'

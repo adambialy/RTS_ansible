@@ -1,5 +1,7 @@
 ---
 
+- import: host_dir.yaml
+
 - name: "check if iperf3 is running"
   shell: 'ps ax | grep iperf3 | grep -v grep | wc -l'
   register: iperf_srv_status
@@ -16,16 +18,10 @@
 - name: "iperf test 1"
   shell: "iperf3 -c 10.1.1.10 -f K >> {{ temp_report }}"
 
-- name: "Creates host directory"
-  file:
-    path: '/var/www/html/{{ inventory_hostname }}'
-    state: directory
-  delegate_to: localhost
-
-- name: "grab file from test machine"
+- name: "download report file from test machine"
   ansible.builtin.fetch:
     src: '{{ temp_report }}'
-    dest: '/var/www/html/{{ inventory_hostname }}/iperf-{{ inventory_hostname }}.txt'
+    dest: '/var/www/html/{{ inventory_hostname }}/network-speedtest-{{ inventory_hostname }}.txt'
     flat: yes
 
 
