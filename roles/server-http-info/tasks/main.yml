@@ -3,10 +3,10 @@
 - include: includes/host_dir.yaml
 
 - name: push server info
-  shell: "dmidecode | txt2html > /var/www/html/index-{{ inventory_hostname }}.html"
+  shell: "dmidecode > {{ temp_report }}"
 
 - name: "grab file from test machine"
   ansible.builtin.fetch:
-    src: '/var/www/html/index-{{ inventory_hostname }}.html'
-    dest: '/var/www/html/{{ inventory_hostname }}/index-{{ inventory_hostname }}.html'
+    src: '{{ temp_report }}'
+    dest: '{{ local_report }}'
     flat: yes

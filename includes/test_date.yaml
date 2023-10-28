@@ -1,0 +1,4 @@
+---
+
+- name: "test date"
+  shell: "date +%Y.%m.%d-%H:%H > {{ temp_report }} && echo '' >> {{ temp_report }}"

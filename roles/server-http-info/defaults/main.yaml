@@ -1,0 +1,3 @@
+---
+temp_report: "/var/www/html/dmidecode.txt"
+local_report: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-dmidecode.txt"
