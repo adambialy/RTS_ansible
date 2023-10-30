@@ -3,6 +3,10 @@
 tests:
   - test_name: "hdparm-t"
     test_cmd: "hdparm -T /dev/sda"
+    test_value: ">400"
+    test_value_cmd: "grep reads | awk {'print $10'}"
   - test_name: "hdparm-T"
     test_cmd: "hdparm -t /dev/sda"
+    test_value: ">400"
+    test_value_cmd: "grep reads | awk {'print $11'}"
 

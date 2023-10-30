@@ -2,7 +2,8 @@
 
 - name: "download report file from test machine"
   ansible.builtin.fetch:
-    src: '{{ temp_report }}'
-    dest: '{{ local_report }}'
+    src: '{{ local_report }}'
+    dest: '{{ dwnl_report }}'
     flat: yes
-
+  with_items:
+    - '{{ tests }}'

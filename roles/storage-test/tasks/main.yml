@@ -3,31 +3,40 @@
 - include: includes/host_dir.yaml
 
 - name: "test procedure"
-  shell: '{{ item.test_cmd }} >> {{ report_path }}/{{ item.test_name }}.txt'
+  shell: '{{ item.test_cmd }} > {{ local_report }}'
   with_items: 
     - "{{ tests }}"
 
-  #- include: includes/test_date.yaml
-  #
-  #- name: "header"
-  #  shell: "echo '' >> {{ temp_report }} && echo 'hdparm test' >> {{ temp_report }} && echo '' >> {{ temp_report }}"
-  #
-  #- name: "disk test 1"
-  #  shell: "hdparm -Tt /dev/sda >> {{ temp_report }}"
-  #
-  #- name: "header"
-  #  shell: "echo '' >> {{ temp_report }} && echo 'hdparm test direct access'  >> {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
-  #
-  #- name: "disk test 2"
-  #  shell: "hdparm -Tt --direct /dev/sda >> {{ temp_report }}"
-  #
-  #    #- name: "header"
-  #    #  shell: "echo 'fio test'  > {{ temp_report }} && echo '--------------' >> {{ temp_report }}"
-  #
-  #    #- name: "disk test 2"
-  #    #  shell: "fio --name=random-write --ioengine=posixaio --rw=randwrite --bs=4k --numjobs=1 --size=1g --iodepth=1 --runtime=60 --time_based --end_fsync=1 >> {{ temp_report }}"
-  #
 - include: includes/download_report.yaml
+
+  #echo `cat /var/www/html/gpu01/gpu01-hdparm-T.txt | grep "disk reads" | awk {'print $11'}`/1 | bc
+
+- name: "value"
+  shell: "printf %.0f `cat {{ dwnl_report }} | {{ item.test_value_cmd }}` > /var/www/html/gpu01/{{ item.test_name }}.result"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+- name: "OK"
+  shell: "cat /var/www/html/gpu01/{{ item.test_name }}.result"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+
+    #- debug: 
+    #    msg: "{{ test_val }}"
+
+    #- name: "error file output"
+    #  shell: echo OK > /var/www/html/gpu01/ttt
+    #  when: test_val.stdout > 400
+
+    #  local_action: ansible.builtin.shell "echo {{ test_val.stdout }} > /var/www/html/gpu01/ttt"
+
+    #- shell: "echo OK > /var/www/html/gpu01/ttt"
+    #  when: test_val.stdout >= '400'
+
+
 
   #- name: "generate php"    
   #  shell: 
