@@ -1,0 +1,8 @@
+---
+
+tests:
+  - test_name: "hdparm-t"
+    test_cmd: "hdparm -t /dev/sda >> {{ temp_report }}"
+  - test_name: "hdparm-T"
+    test_cmd: "hdparm -T /dev/sda >> {{ temp_report }}"
+

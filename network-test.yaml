@@ -1,9 +1,9 @@
 ---
-- name: iperf test
+- name: network tests
   gather_facts: False
   ignore_unreachable: True
   hosts: gpu
   serial: 1
   roles:
-    - role: iperf-test
+    - role: network-test
 

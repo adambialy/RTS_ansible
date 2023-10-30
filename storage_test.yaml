@@ -3,5 +3,5 @@
   gather_facts: False
   hosts: all
   roles:
-    - role: disk-tests
+    - role: storage-test
 
