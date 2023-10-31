@@ -12,13 +12,31 @@
   #echo `cat /var/www/html/gpu01/gpu01-hdparm-T.txt | grep "disk reads" | awk {'print $11'}`/1 | bc
 
 - name: "value"
-  shell: "printf %.0f `cat {{ dwnl_report }} | {{ item.test_value_cmd }}` > /var/www/html/gpu01/{{ item.test_name }}.result"
+  shell: "printf %.0f `cat {{ dwnl_report }} | {{ item.test_value_cmd }}` > /var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.result"
   with_items: 
     - "{{ tests }}"
   delegate_to: localhost
 
 - name: "OK"
-  shell: "cat /var/www/html/gpu01/{{ item.test_name }}.result"
+  shell: "cat /var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.result"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+- name: "generate test index php"
+  template: 
+    src: templates/test_index.php.j2
+    dest: "/var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.php"
+    mode: "0666"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+- name: "generate host index php"
+  template: 
+    src: templates/host_index.php.j2
+    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
+    mode: "0666"
   with_items: 
     - "{{ tests }}"
   delegate_to: localhost
