@@ -1,3 +1,8 @@
 ---
-temp_report: "/tmp/iperf3.out"
-html_report: "/var/www/html/iperf.html"
+
+report_path: "/var/www/html"
+temp_report: "/tmp/disk-tests.out"
+local_report: "/var/www/html/{{ item.test_name }}.txt"
+dwnl_report: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-{{ item.test_name }}.txt"
+
+

@@ -1,34 +1,60 @@
 ---
 
 - include: includes/host_dir.yaml
-
+- include: includes/iperf_server_local.yaml
 
 - name: "test procedure"
-  shell: "{{ test_cmd }}"
-  with_items:
+  shell: '{{ item.test_cmd }} > {{ local_report }}'
+  with_items: 
     - "{{ tests }}"
 
+- include: includes/download_report.yaml
 
-      #- name: "check if iperf3 is running"
-      #  shell: 'ps ax | grep iperf3 | grep -v grep | wc -l'
-      #  register: iperf_srv_status
-      #  delegate_to: localhost
-      #
-      #- name: "run iperf server if its not running"
-      #  shell: 'iperf3 -s -D'
-      #  when: iperf_srv_status.stdout == "0"
-      #  delegate_to: localhost
-      #
-      #- name: "create empty test result file"
-      #  shell: "date > {{ temp_report }} && echo -------------- >> {{ temp_report }}"
-      #
-      #- name: "iperf test 1"
-      #  shell: "iperf3 -c 10.1.1.10 -f K >> {{ temp_report }}"
-      #
-- name: "download report file from test machine"
-  fetch:
-    src: '{{ temp_report }}'
-    dest: '/var/www/html/{{ inventory_hostname }}/network-speedtest-{{ inventory_hostname }}.txt'
-    flat: yes
-  ignore_errors: True
+- name: "value"
+  shell: "printf %.0f `cat {{ dwnl_report }} | {{ item.test_value_cmd }}` > /var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.result"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+- name: "OK"
+  shell: "cat /var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.result"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+- name: "generate test index php"
+  template: 
+    src: templates/test_index.php.j2
+    dest: "/var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.php"
+    mode: "0666"
+  with_items: 
+    - "{{ tests }}"
+  delegate_to: localhost
+
+    ##- name: "generate host index php"
+    ##  template: 
+    ##    src: templates/host_index.php.j2
+    ##    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
+    ##    mode: "0666"
+    ##  with_items: 
+    ##    - "{{ tests }}"
+    ##  delegate_to: localhost
+    ##
+
+    #- debug: 
+    #    msg: "{{ test_val }}"
+
+    #- name: "error file output"
+    #  shell: echo OK > /var/www/html/gpu01/ttt
+    #  when: test_val.stdout > 400
+
+    #  local_action: ansible.builtin.shell "echo {{ test_val.stdout }} > /var/www/html/gpu01/ttt"
+
+    #- shell: "echo OK > /var/www/html/gpu01/ttt"
+    #  when: test_val.stdout >= '400'
+
+
+
+  #- name: "generate php"    
+  #  shell: 
 

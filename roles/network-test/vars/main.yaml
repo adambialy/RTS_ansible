@@ -1,8 +1,14 @@
 ---
 
 tests:
-  - test_name: "hdparm-t"
-    test_cmd: "hdparm -t /dev/sda >> {{ temp_report }}"
-  - test_name: "hdparm-T"
-    test_cmd: "hdparm -T /dev/sda >> {{ temp_report }}"
+  - test_name: "iperf-std-sender"
+    test_cmd: "iperf3 -c 10.1.1.10 -f K"
+    test_ml: "more"
+    test_limit: "600000"
+    test_value_cmd: "grep sender | awk {'print $7'}"
+  - test_name: "iperf-std-receiver"
+    test_cmd: "iperf3 -c 10.1.1.10 -f K"
+    test_ml: "more"
+    test_limit: "600000"
+    test_value_cmd: "grep receiver | awk {'print $7'}"
 

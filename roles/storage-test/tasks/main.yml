@@ -32,15 +32,15 @@
     - "{{ tests }}"
   delegate_to: localhost
 
-- name: "generate host index php"
-  template: 
-    src: templates/host_index.php.j2
-    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
-    mode: "0666"
-  with_items: 
-    - "{{ tests }}"
-  delegate_to: localhost
-
+    ##- name: "generate host index php"
+    ##  template: 
+    ##    src: templates/host_index.php.j2
+    ##    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
+    ##    mode: "0666"
+    ##  with_items: 
+    ##    - "{{ tests }}"
+    ##  delegate_to: localhost
+    ##
 
     #- debug: 
     #    msg: "{{ test_val }}"

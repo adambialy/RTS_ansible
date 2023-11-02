@@ -1,0 +1,12 @@
+---
+
+- name: "check if iperf3 is running"
+  shell: 'ps ax | grep iperf3 | grep -v grep | wc -l'
+  register: iperf_srv_status
+  delegate_to: localhost
+
+- name: "run iperf server if its not running"
+  shell: 'iperf3 -s -D'
+  when: iperf_srv_status.stdout == "0"
+  delegate_to: localhost
+

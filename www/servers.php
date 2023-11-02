@@ -1,3 +1,9 @@
+<?php
+foreach (glob("gpu01/*.php") as $filename)
+{ include $filename; }
+?>
+
+
 <?php include 'control/control-index.php'; ?>
 <?php include 'gpu01/gpu01-index.php'; ?>
 <?php include 'gpu02/gpu02-index.php'; ?>
