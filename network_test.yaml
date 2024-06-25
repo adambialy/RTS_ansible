@@ -1,0 +1,9 @@
+---
+- name: network tests
+  gather_facts: False
+  ignore_unreachable: True
+  hosts: gpu
+  serial: 1
+  roles:
+    - role: network-test
+

@@ -1,0 +1,29 @@
+<tr>
+
+<td>
+{{ inventory_hostname }}
+</td>
+
+<td>
+{{ item.test_name }}
+</td>
+
+<td>
+<?php
+$output = shell_exec('/usr/bin/test_result.sh /var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.result time');
+echo "$output";
+?>
+</td>
+
+<td>
+<?php
+$output = shell_exec('/usr/bin/test_result.sh /var/www/html/{{ inventory_hostname }}/{{ item.test_name }}.result {{ item.test_ml }} {{ item.test_limit }}');
+echo "$output";
+?>
+</td>
+
+<td>
+<?php include '{{ item.test_name }}.result'; ?>
+</td>
+
+</tr>

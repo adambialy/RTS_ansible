@@ -1,0 +1,9 @@
+---
+
+tests:
+  - test_name: "gpu-burn"
+    test_cmd: "/root/gpu-burn/gpu_burn -m 100% -d 1"
+    test_ml: "less"
+    test_limit: "0"
+    test_value_cmd: "tail -n 3 | grep FAULTY | wc -l"
+
