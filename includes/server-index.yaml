@@ -1,0 +1,11 @@
+---
+
+- name: "generate server index php"
+  template: 
+    src: includes/server_index.php.j2
+    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
+    mode: "0666"
+  with_items: 
+    - '{{ groups["all"] }}'
+  delegate_to: localhost
+
