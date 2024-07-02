@@ -5,3 +5,12 @@
     path: '/var/www/html/{{ inventory_hostname }}'
     state: directory
   delegate_to: localhost
+
+
+- name: "generate server index php"
+  template: 
+    src: includes/server_index.php.j2
+    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
+    mode: "0666"
+  delegate_to: localhost
+

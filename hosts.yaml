@@ -4,7 +4,7 @@ all:
   children:
     control_srv:
       hosts:
-        controler:
+        control:
           ansibe_user: root
           ansible_host: 10.1.1.10
           ansible_port: 22
