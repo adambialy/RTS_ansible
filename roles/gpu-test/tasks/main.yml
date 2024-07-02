@@ -5,6 +5,8 @@
 - name: "test procedure"
   shell: '{{ item.test_cmd }} > {{ local_report }}'
   ignore_errors: true
+  args:
+    chdir: /root/gpu-burn
   with_items: 
     - "{{ tests }}"
 
@@ -30,31 +32,4 @@
   with_items: 
     - "{{ tests }}"
   delegate_to: localhost
-
-    ##- name: "generate host index php"
-    ##  template: 
-    ##    src: templates/host_index.php.j2
-    ##    dest: "/var/www/html/{{ inventory_hostname }}/{{ inventory_hostname }}-index.php"
-    ##    mode: "0666"
-    ##  with_items: 
-    ##    - "{{ tests }}"
-    ##  delegate_to: localhost
-    ##
-
-    #- debug: 
-    #    msg: "{{ test_val }}"
-
-    #- name: "error file output"
-    #  shell: echo OK > /var/www/html/gpu01/ttt
-    #  when: test_val.stdout > 400
-
-    #  local_action: ansible.builtin.shell "echo {{ test_val.stdout }} > /var/www/html/gpu01/ttt"
-
-    #- shell: "echo OK > /var/www/html/gpu01/ttt"
-    #  when: test_val.stdout >= '400'
-
-
-
-  #- name: "generate php"    
-  #  shell: 
 

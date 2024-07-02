@@ -1,0 +1,16 @@
+---
+# tasks file for identify
+#
+#
+- name: get serial number
+  shell: dmidecode -s system-serial-number
+  register: systemserial
+
+
+- debug:
+    msg: "{{ inventory_hostname }} - {{ systemserial.stdout }}"
+
+- name: Set hostname 
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}-{{ systemserial.stdout }}"
+    use: systemd

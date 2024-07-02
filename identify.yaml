@@ -1,0 +1,7 @@
+---
+- name: identify servers
+  gather_facts: true
+  hosts: all
+  roles:
+    - role: identify 
+

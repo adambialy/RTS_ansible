@@ -1,7 +1,7 @@
 ---
 - name: gpu test
   gather_facts: False
-  hosts: all
+  hosts: gpu
   roles:
     - role: gpu-test 
 
