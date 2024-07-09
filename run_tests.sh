@@ -15,3 +15,6 @@ else
 fi
 
 curl http://localhost | html2text > /var/www/html/index.txt
+
+cat /var/www/html/index.txt
+
