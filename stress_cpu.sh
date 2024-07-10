@@ -24,6 +24,6 @@ else
 	T_NODES=${2}
 fi
 
-echo ansible -i hosts.yaml -m shell -a "stress-ng --matrix 1 -t ${T_DURATION}s" ${T_NODES}
+ansible -i hosts.yaml -m shell -a "stress-ng --matrix 1 -t ${T_DURATION}s" ${T_NODES}
 
 
